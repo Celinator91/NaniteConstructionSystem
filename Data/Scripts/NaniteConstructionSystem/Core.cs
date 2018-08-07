@@ -42,9 +42,9 @@ namespace Ntech.Nanite
             }
         }
 
-        internal List<LargeControlFacilityLogic> LargeControlFacilityLogics => largeControlFacilityLogics;
+        internal List<Entities.LargeControlFacilityLogic> LargeControlFacilityLogics => largeControlFacilityLogics;
 
-        private readonly List<LargeControlFacilityLogic> largeControlFacilityLogics = new List<LargeControlFacilityLogic>();
+        private readonly List<Entities.LargeControlFacilityLogic> largeControlFacilityLogics = new List<Entities.LargeControlFacilityLogic>();
 
         #region Simulation / Init
         public override void BeforeStart()

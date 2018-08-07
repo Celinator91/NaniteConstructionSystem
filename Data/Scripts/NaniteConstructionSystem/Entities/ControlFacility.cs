@@ -10,7 +10,7 @@ using VRage.ModAPI;
 using VRage.ObjectBuilders;
 using VRageMath;
 
-namespace Ntech.Nanite
+namespace Ntech.Nanite.Entities
 {
 
     [MyEntityComponentDescriptor(typeof(MyObjectBuilder_ShipWelder), true, "LargeNaniteFactory")]
