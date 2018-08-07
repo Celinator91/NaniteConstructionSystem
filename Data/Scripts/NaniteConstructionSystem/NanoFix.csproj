@@ -124,10 +124,10 @@
   <ItemGroup>
     <Compile Include="Core.cs" />
     <Compile Include="Entities\ControlFacility.cs" />
+    <Compile Include="Extensions\MessageUtils.cs" />
     <Compile Include="Logging.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Extensions\" />
     <Folder Include="Particles\" />
     <Folder Include="Properties\" />
     <Folder Include="Settings\" />

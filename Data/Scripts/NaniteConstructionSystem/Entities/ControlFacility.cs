@@ -31,6 +31,8 @@ namespace Ntech.Nanite
             {
                 if (Welder.CubeGrid.Physics == null) return;
                 Session.Instance.LargeControlFacilityLogics.Add(this);
+                if (MyAPIGateway.Multiplayer.IsServer)
+                    Entity.NeedsUpdate |= MyEntityUpdateEnum.EACH_10TH_FRAME;
             }
             catch (Exception ex) { NaniteConstructionSystem.Logging.Instance.WriteLine($"Exception in UpdateOnceBeforeFrame: {ex}"); }
         }

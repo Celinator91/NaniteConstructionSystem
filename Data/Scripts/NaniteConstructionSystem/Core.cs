@@ -1,7 +1,7 @@
+using ProtoBuf;
 using Sandbox.ModAPI;
 using System;
 using System.Collections.Generic;
-using VRage.Game;
 using VRage.Game.Components;
 
 namespace Ntech.Nanite
@@ -9,9 +9,19 @@ namespace Ntech.Nanite
     [MySessionComponentDescriptor(MyUpdateOrder.BeforeSimulation)]
     public class Session : MySessionComponentBase
     {
-        public const ushort PACKET_SYNC_CONFIG = 8956;
+        static bool _isInitialized = false;
 
         public static Session Instance { get; private set; }
+
+        private static Config m_configuration;
+        public static Config Configuration
+        {
+            get { return m_configuration; }
+            private set
+            {
+                m_configuration = value;
+            }
+        }
 
         internal List<LargeControlFacilityLogic> LargeControlFacilityLogics => largeControlFacilityLogics;
 
@@ -25,11 +35,49 @@ namespace Ntech.Nanite
             try
             {
                 NaniteConstructionSystem.Logging.Instance.WriteLine($"Logging Started");
-                //MyAPIGateway.Multiplayer.RegisterMessageHandler(PACKET_SYNC_CONFIG, PacketSettingsReceived);
+
+                if (MyAPIGateway.Multiplayer.IsServer)
+                {
+                    var cfg = new Config();
+                    cfg.test = "foo";
+                    SetConfig(cfg);
+                }
+
+                MyAPIGateway.Multiplayer.RegisterMessageHandler(Extensions.MessageUtils.MessageId, Extensions.MessageUtils.HandleMessage);
+
+                MyAPIGateway.Session.OnSessionReady += Session_OnSessionReady;
             }
             catch (Exception ex) { NaniteConstructionSystem.Logging.Instance.WriteLine($"Exception in BeforeStart: {ex}"); }
         }
+
+        public override void UpdateBeforeSimulation()
+        {
+            if (!_isInitialized && MyAPIGateway.Session != null)
+                Init();
+        }
+
+        private void Init()
+        {
+            _isInitialized = true;
+            NaniteConstructionSystem.Logging.Instance.WriteLine("Session.Init()");
+        }
+
+        void Session_OnSessionReady()
+        {
+            if (!MyAPIGateway.Multiplayer.IsServer)
+                Extensions.MessageUtils.SendMessageToServer(new MessageClientConnected());
+        }
         #endregion
+
+        public static void SetConfig(Config config)
+        {
+            // The settings need to be merged into the existing client options
+            var clientconfig = Configuration;   // current client settings
+            Configuration = config;             // Replace client settings 
+
+            NaniteConstructionSystem.Logging.Instance.WriteLine("Loading new settings from server");
+            NaniteConstructionSystem.Logging.Instance.WriteLine(Configuration.test);
+        }
 
         #region Loading
         public override void LoadData()
@@ -44,5 +92,43 @@ namespace Ntech.Nanite
             NaniteConstructionSystem.Logging.Instance.WriteLine("Unloaded");
         }
         #endregion
+    }
+
+    [ProtoContract]
+    public class MessageConfig : Extensions.MessageBase
+    {
+        [ProtoMember(10)]
+        public Config Configuration;
+
+        public override void ProcessClient()
+        {
+            Session.SetConfig(Configuration);
+        }
+
+        public override void ProcessServer()
+        {
+        }
+    }
+
+    [ProtoContract]
+    public class MessageClientConnected : Extensions.MessageBase
+    {
+        public override void ProcessClient()
+        {
+        }
+
+        public override void ProcessServer()
+        {
+            NaniteConstructionSystem.Logging.Instance.WriteLine(string.Format("Sending config to new client: {0}", SenderSteamId));
+            // Send new clients the configuration
+            Extensions.MessageUtils.SendMessageToPlayer(SenderSteamId, new MessageConfig() { Configuration = Session.Configuration });
+        }
+    }
+
+    [ProtoContract]
+    public class Config
+    {
+        [ProtoMember(1)]
+        public string test = "";
     }
 }
