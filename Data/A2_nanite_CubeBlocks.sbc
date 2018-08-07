@@ -49,9 +49,9 @@
       </InventorySize>	  	  
     </Definition>
 -->	
-    <Definition xsi:type="MyObjectBuilder_OxygenFarmDefinition">
+    <Definition xsi:type="MyObjectBuilder_ShipWelderDefinition">
       <Id>
-        <TypeId>OxygenFarm</TypeId>
+        <TypeId>ShipWelder</TypeId>
         <SubtypeId>LargeNaniteFactory</SubtypeId>
       </Id>
       <DisplayName>Nanite Control Factory</DisplayName>

@@ -1,11 +1,30 @@
 using ProtoBuf;
+using Sandbox.Common.ObjectBuilders;
 using Sandbox.ModAPI;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using VRage.Game.Components;
+using VRage.Game.ModAPI;
+using VRage.ModAPI;
+using VRage.ObjectBuilders;
 
 namespace Ntech.Nanite
 {
+    [MyEntityComponentDescriptor(typeof(MyObjectBuilder_OxygenFarm), true, "LargeNaniteBeaconProjection", "SmallNaniteBeaconProjection")]
+    public class NaniteBeaconProjectionLogic : MyGameLogicComponent
+    {
+        public override void Init(MyObjectBuilder_EntityBase objectBuilder)
+        {
+            NaniteConstructionSystem.Logging.Instance.WriteLine(string.Format("ADDING Projection Beacon: {0}", Entity.EntityId));
+        }
+
+        public override MyObjectBuilder_EntityBase GetObjectBuilder(bool copy = false)
+        {
+            return null;
+        }
+    }
+
     [MySessionComponentDescriptor(MyUpdateOrder.BeforeSimulation)]
     public class Session : MySessionComponentBase
     {
@@ -23,9 +42,9 @@ namespace Ntech.Nanite
             }
         }
 
-        internal List<LargeControlFacilityLogic> LargeControlFacilityLogics => largeControlFacilityLogics;
+        internal List<Entities.LargeControlFacilityLogic> LargeControlFacilityLogics => largeControlFacilityLogics;
 
-        private readonly List<LargeControlFacilityLogic> largeControlFacilityLogics = new List<LargeControlFacilityLogic>();
+        private readonly List<Entities.LargeControlFacilityLogic> largeControlFacilityLogics = new List<Entities.LargeControlFacilityLogic>();
 
         #region Simulation / Init
         public override void BeforeStart()
@@ -38,8 +57,10 @@ namespace Ntech.Nanite
 
                 if (MyAPIGateway.Multiplayer.IsServer)
                 {
-                    var cfg = new Config();
-                    cfg.test = "foo";
+                    var cfg = new Config
+                    {
+                        test = "foo"
+                    };
                     SetConfig(cfg);
                 }
 
