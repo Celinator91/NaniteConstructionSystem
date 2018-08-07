@@ -77,10 +77,7 @@ namespace Ntech.Nanite.Entities
 
                 m_effects = new List<Effects.NaniteBlockEffectBase>();
                 m_effects.Add(new Effects.LightningBolt.LightningBoltEffect((MyCubeBlock)Entity));
-                //m_effects.Add(new Effects.CenterOrbEffect((MyCubeBlock)Entity));
-
-                IsFunctionalChanged();
-                ((MyCubeBlock)Entity).SlimBlock.ComponentStack.IsFunctionalChanged += IsFunctionalChanged;
+                m_effects.Add(new Effects.CenterOrbEffect((MyCubeBlock)Entity));
             }
             catch (Exception ex) { NaniteConstructionSystem.Logging.Instance.WriteLine($"Exception in EntityInit: {ex}"); }
         }
@@ -148,20 +145,6 @@ namespace Ntech.Nanite.Entities
             Random rnd = new Random();
             int rndnumber = rnd.Next();
             stringBuilder.Append(Session.Configuration.test + ": " + rndnumber.ToString());
-        }
-
-        private void IsFunctionalChanged()
-        {
-            NaniteConstructionSystem.Logging.Instance.WriteLine("IsFunctionalChanged factory");
-            // Hide orb if not working, and show if working
-            // workaround for orb visible in blueprint mode
-            if (Welder.IsFunctional)
-                m_effects.Add(new Effects.CenterOrbEffect((MyCubeBlock)Entity));
-            else if (m_effects.Count > 1)
-            {
-                var effect = m_effects.Pop();
-                effect.Unload();
-            }
         }
 
         /// <summary>
