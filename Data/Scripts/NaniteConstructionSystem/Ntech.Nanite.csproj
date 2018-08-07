@@ -124,11 +124,23 @@
   <ItemGroup>
     <Compile Include="Core.cs" />
     <Compile Include="Entities\ControlFacility.cs" />
+    <Compile Include="Entities\Effects\CenterOrbEffect.cs" />
+    <Compile Include="Entities\Effects\LightningBolt\LightningBoltEffect.cs" />
+    <Compile Include="Entities\Effects\LightningBolt\LightningBoltInstance.cs" />
+    <Compile Include="Entities\Effects\LightningBolt\LightningBoltItem.cs" />
+    <Compile Include="Entities\Effects\LightningBolt\LightningBoltPath.cs" />
+    <Compile Include="Entities\Effects\NaniteBlockEffectBase.cs" />
+    <Compile Include="Extensions\Conveyor.cs" />
+    <Compile Include="Extensions\EntityHelper.cs" />
+    <Compile Include="Extensions\MathExtensions.cs" />
     <Compile Include="Extensions\MessageUtils.cs" />
     <Compile Include="Logging.cs" />
+    <Compile Include="Particles\NaniteParticle.cs" />
+    <Compile Include="Particles\NaniteParticleManager.cs" />
+    <Compile Include="Particles\ParticleEffectManager.cs" />
+    <Compile Include="Particles\ParticleRelativePath.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Particles\" />
     <Folder Include="Properties\" />
     <Folder Include="Settings\" />
   </ItemGroup>

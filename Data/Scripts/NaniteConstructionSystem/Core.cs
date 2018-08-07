@@ -1,13 +1,16 @@
 using ProtoBuf;
 using Sandbox.Common.ObjectBuilders;
+using Sandbox.Game.Entities;
 using Sandbox.ModAPI;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using VRage.Game.Components;
+using VRage.Game.Entity;
 using VRage.Game.ModAPI;
 using VRage.ModAPI;
 using VRage.ObjectBuilders;
+using VRageMath;
 
 namespace Ntech.Nanite
 {
@@ -143,6 +146,29 @@ namespace Ntech.Nanite
             NaniteConstructionSystem.Logging.Instance.WriteLine(string.Format("Sending config to new client: {0}", SenderSteamId));
             // Send new clients the configuration
             Extensions.MessageUtils.SendMessageToPlayer(SenderSteamId, new MessageConfig() { Configuration = Session.Configuration });
+        }
+    }
+
+    [ProtoContract]
+    public class MessageLargeControlFacilityStateChange : Extensions.MessageBase
+    {
+        [ProtoMember(10)]
+        public long EntityId;
+
+        [ProtoMember(11)]
+        public Entities.LargeControlFacilityLogic.FactoryStates State;
+
+        public override void ProcessClient()
+        {
+            foreach (var item in Session.Instance.LargeControlFacilityLogics)
+            {
+                if (item.Entity.EntityId == EntityId)
+                    item.FactoryState = State;
+            }
+        }
+
+        public override void ProcessServer()
+        {
         }
     }
 

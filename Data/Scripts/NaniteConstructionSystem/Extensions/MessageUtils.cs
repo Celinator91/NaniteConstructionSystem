@@ -86,7 +86,10 @@ namespace Ntech.Extensions
         }
     }
 
-    [ProtoContract, ProtoInclude(5001, typeof(Nanite.MessageClientConnected)), ProtoInclude(5002, typeof(Nanite.MessageConfig))]
+    [ProtoContract]
+    [ProtoInclude(5001, typeof(Nanite.MessageClientConnected))]
+    [ProtoInclude(5002, typeof(Nanite.MessageConfig))]
+    [ProtoInclude(5003, typeof(Nanite.MessageLargeControlFacilityStateChange))]
     public abstract class MessageBase
     {
         /// <summary>
