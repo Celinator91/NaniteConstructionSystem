@@ -156,7 +156,7 @@ namespace Ntech.Nanite
         public long EntityId;
 
         [ProtoMember(11)]
-        public Entities.LargeControlFacilityLogic.FactoryStates State;
+        public Entities.LargeControlFacilityLogic.ControlFacilityStates State;
 
         public override void ProcessClient()
         {

@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core.cs" />
+    <Compile Include="Entities\Class1.cs" />
     <Compile Include="Entities\ControlFacility.cs" />
     <Compile Include="Entities\Effects\CenterOrbEffect.cs" />
     <Compile Include="Entities\Effects\LightningBolt\LightningBoltEffect.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Entities\Effects\LightningBolt\LightningBoltItem.cs" />
     <Compile Include="Entities\Effects\LightningBolt\LightningBoltPath.cs" />
     <Compile Include="Entities\Effects\NaniteBlockEffectBase.cs" />
+    <Compile Include="Entities\Targets\NaniteTargetBase.cs" />
     <Compile Include="Extensions\Conveyor.cs" />
     <Compile Include="Extensions\EntityHelper.cs" />
     <Compile Include="Extensions\MathExtensions.cs" />
