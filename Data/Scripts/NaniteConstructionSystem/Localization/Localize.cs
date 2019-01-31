@@ -243,48 +243,73 @@ namespace NaniteConstructionSystem
                     {
                         default:
                             return "Meet the Developers";
+                            break;
+                        case (MyLanguagesEnum.German):
+                            return "Treffe den Entwickler";
                     }
                 case (29): // This is a help section header
                     switch (language)
                     {
                         default:
                             return "Localization contributors";
+                            break;
+                        case (MyLanguagesEnum.German):
+                            return "Übersetzer"
                     }
                 case (30): // This is a help section header
                     switch (language)
                     {
                         default:
                             return "Testing Server";
+                            break;
+                        case (MyLanguagesEnum.German):
+                            return "Teste Server";
                     }
                 case (31): // This is a help section header
                     switch (language)
                     {
                         default:
                             return "A Sincere Thanks";
+                            break;
+                        case (MyLanguagesEnum.German):
+                            return "Ein aufrichtiger Dank";
                     }
                 case (32): // This is a help section header
                     switch (language)
                     {
                         default:
                             return "Working Together";
+                            break;
+                        case (MyLanguagesEnum.German):
+                            return "Zusammen arbeiten";
                     }
                 case (33): // This is a help section header
                     switch (language)
                     {
                         default:
                             return "Shared Resources";
+                            break;
+                        case (MyLanguagesEnum.German):
+                            return "Geteilte Ressourcen";
+                            
                     }
                 case (34): // This is a help section header
                     switch (language)
                     {
                         default:
                             return "Mining Nanites";
+                            break;
+                        case (MyLanguagesEnum.German):
+                            return "Bergbau Naniten";
                     }
                 case (35): // This is a help section header
                     switch (language)
                     {
                         default:
                             return "Medical Nanites";
+                            break;
+                        case (MyLanguagesEnum.German):
+                            return "Medizinische Naniten";
                     }
                 default:
                     return ""; 
